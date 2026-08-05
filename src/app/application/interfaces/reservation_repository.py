@@ -18,3 +18,7 @@ class ReservationRepository(ABC):
     @abstractmethod
     def get_by_spot(self, spot_id: int) -> list[Reservation]:
         pass
+
+    @abstractmethod
+    def cancel(self, res_id: UUID) -> None:
+        pass

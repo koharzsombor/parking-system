@@ -8,4 +8,10 @@ class Reservation:
     user_id: UUID
     spot_id: int
     start_time: datetime
-    
+    end_time: datetime
+
+    def overlaps(self, start_time: datetime, end_time: datetime):
+        return (
+            self.start_time < end_time and
+            start_time < self.end_time
+        )

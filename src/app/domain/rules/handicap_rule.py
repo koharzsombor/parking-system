@@ -1,5 +1,5 @@
-from domain.models.parking_spot import ParkingSpot
-from domain.models.user import User
+from app.domain.models.parking_spot import ParkingSpot
+from app.domain.models.user import User
 from reservation_eligibility_rule import ReservationEligibilityRule
 
 class HandicapRule(ReservationEligibilityRule):

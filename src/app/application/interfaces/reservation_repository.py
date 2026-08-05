@@ -1,6 +1,6 @@
 from uuid import UUID
 from abc import ABC, abstractmethod
-from domain.models.reservation import Reservation
+from app.domain.models.reservation import Reservation
 
 class ReservationRepository(ABC):
     @abstractmethod

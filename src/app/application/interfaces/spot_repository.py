@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from domain.models.parking_spot import ParkingSpot
+from app.domain.models.parking_spot import ParkingSpot
 
 class SpotRepository(ABC):
     @abstractmethod

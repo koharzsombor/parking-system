@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
-from domain.models.user import User
-from domain.models.parking_spot import ParkingSpot
+from app.domain.models.user import User
+from app.domain.models.parking_spot import ParkingSpot
 
 class ReservationEligibilityRule(ABC):
     @abstractmethod

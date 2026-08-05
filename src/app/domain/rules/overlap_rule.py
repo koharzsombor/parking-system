@@ -1,5 +1,5 @@
 from datetime import datetime
-from domain.models.reservation import Reservation
+from app.domain.models.reservation import Reservation
 from reservation_availability_rule import ReservationAvailabilityRule
 
 class OverlapRule(ReservationAvailabilityRule):

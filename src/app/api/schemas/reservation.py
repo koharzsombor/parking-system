@@ -4,6 +4,7 @@ from datetime import datetime
 
 
 class CreateReservationRequest(BaseModel):
+    user_id: UUID
     spot_id: int
     start_time: datetime
     end_time: datetime

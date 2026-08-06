@@ -24,15 +24,11 @@ router = APIRouter(
 def create_reservation(
         request: CreateReservationRequest,
         use_case: CreateReservation = Depends(get_create_reservation),
-        user_repository: UserRepository = Depends(get_user_repository),
-        spot_repository: SpotRepository = Depends(get_spot_repository)
 ):
-    reserver = user_repository.get_by_id(request.user_id)
-    spot = spot_repository.get_by_id(request.spot_id)
 
     use_case(
-        reserver=reserver,
-        spot= spot,
+        reserver_id=request.user_id,
+        spot_id=request.spot_id,
         start=request.start_time,
         end=request.end_time
     )

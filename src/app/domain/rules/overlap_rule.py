@@ -3,6 +3,7 @@ from app.domain.models.reservation import Reservation
 from app.domain.rules.reservation_availability_rule import ReservationAvailabilityRule
 
 class OverlapRule(ReservationAvailabilityRule):
+    """Checks if the given time overlaps with any reservations."""
     def check(self, reservations: list[Reservation], start: datetime, end: datetime) -> bool:
         return not any(
             reservation.overlaps(start, end) for reservation in reservations

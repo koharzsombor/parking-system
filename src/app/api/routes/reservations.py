@@ -25,6 +25,7 @@ def create_reservation(
         request: CreateReservationRequest,
         use_case: CreateReservation = Depends(get_create_reservation),
 ):
+    """Creates a reservation given it is withing the rules of creating one."""
 
     use_case(
         reserver_id=request.user_id,
@@ -39,11 +40,21 @@ def cancel_reservation(
         reservation_id: UUID,
         use_case: CancelReservation = Depends(get_cancel_reservation)
 ):
+    """Deletes the reservation of the given ID
+
+    Args:
+        reservation_id (UUID): The ID of the item to be deleted.
+    """
     use_case(reservation_id=reservation_id)
 
 @router.get("/{reservation_id}", response_model=ReservationResponse)
 def get_reservation(reservation_id: UUID,
                     reservation_repository: ReservationRepository = Depends(get_reservation_repository)):
+    """Gets the reservation with the given index.
+
+    Args:
+        reservation_id (UUID): ID of the reservation.
+    """
 
     try:
         reservation = reservation_repository.get_by_id(reservation_id)

@@ -15,12 +15,18 @@ router = APIRouter(
 )
 
 @router.get("/", response_model=list[ParkingSpotResponse])
-def query_parking_spots(use_case: QuerySpots = Depends(get_query_spots)):
-    spots = use_case()
+def query_parking_spots(query_spots: QuerySpots = Depends(get_query_spots)):
+    """Returns all the parking spots in the database."""
+    spots = query_spots()
     return [ ParkingSpotMapper.to_schema(spot) for spot in spots ]
 
 @router.get("/{spot_id}/reservations", response_model=list[ReservationResponse])
 def query_spot_reservations(spot_id: int,
-                            use_case: QuerySpotReservations = Depends(get_query_spot_reservations)):
-    reservations = use_case(spot_id=spot_id)
+                            query_reservations: QuerySpotReservations = Depends(get_query_spot_reservations)):
+    """Returns all the reservations made on the given spot.
+
+    Args:
+        spot_id (int): The ID of the given spot.
+    """
+    reservations = query_reservations(spot_id=spot_id)
     return [ ReservationMapper.to_schema(reservation) for reservation in reservations ]

@@ -5,7 +5,7 @@ from app.infrastructure.database.base import Base
 class ReservationModel(Base):
     __tablename__ = "reservations"
 
-    id = mapped_column(UUID)
+    id = mapped_column(UUID, primary_key = True)
     user_id = mapped_column(UUID)
     spot_id = mapped_column(INT)
 

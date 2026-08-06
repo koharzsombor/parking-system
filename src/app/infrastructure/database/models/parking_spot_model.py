@@ -5,6 +5,6 @@ from sqlalchemy.testing.schema import mapped_column
 class ParkingSpotModel(Base):
     __tablename__ = "parking_spots"
 
-    id = mapped_column(INT)
+    id = mapped_column(INT, primary_key = True)
     vip = mapped_column(BOOLEAN)
     handicapped = mapped_column(BOOLEAN)

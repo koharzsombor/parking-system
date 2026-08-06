@@ -5,7 +5,7 @@ from sqlalchemy.testing.schema import mapped_column
 class UserModel(Base):
     __tablename__ = "users"
 
-    id = mapped_column(UUID)
+    id = mapped_column(UUID, primary_key = True)
     email = mapped_column(String)
     phone = mapped_column(String)
     handicapped = mapped_column(BOOLEAN)

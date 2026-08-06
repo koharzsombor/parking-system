@@ -15,6 +15,7 @@ class CancelReservationRequest(BaseModel):
 
 class ReservationResponse(BaseModel):
     id: UUID
+    user_id: UUID
     spot_id: int
     start_time: datetime
     end_time: datetime

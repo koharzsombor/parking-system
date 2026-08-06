@@ -12,14 +12,19 @@ from app.domain.rules.reservation_eligibility_rule import ReservationEligibility
 
 
 class CreateReservation:
+    def __init__(self,
+                availability_rules: list[ReservationAvailabilityRule],
+                eligibility_rules: list[ReservationEligibilityRule],
+                reservation_repository: ReservationRepository):
+        self.availability_rules: list[ReservationAvailabilityRule] = availability_rules
+        self.eligibility_rules: list[ReservationEligibilityRule] = eligibility_rules
+        self.reservation_repository: ReservationRepository = reservation_repository
+
     def __call__(self,
                 reserver: User,
                 spot: ParkingSpot,
-                reservation_repository: ReservationRepository,
                 start: datetime,
-                end: datetime,
-                availability_rules: list[ReservationAvailabilityRule],
-                eligibility_rules: list[ReservationEligibilityRule]):
+                end: datetime):
 
         new_reservation : Reservation = Reservation(
             id=uuid4(),
@@ -30,8 +35,8 @@ class CreateReservation:
         )
 
         if all(
-            rule.check(reservation_repository.get_by_spot(spot.id), start, end) for rule in availability_rules
+            rule.check(self.reservation_repository.get_by_spot(spot.id), start, end) for rule in self.availability_rules
         ) and all(
-            rule.check(reserver, spot) for rule in eligibility_rules
+            rule.check(reserver, spot) for rule in self.eligibility_rules
         ):
-            reservation_repository.save(new_reservation)
+            self.reservation_repository.save(new_reservation)

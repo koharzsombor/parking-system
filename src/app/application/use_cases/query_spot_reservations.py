@@ -3,7 +3,8 @@ from app.application.interfaces.reservation_repository import ReservationReposit
 
 
 class QuerySpotReservations:
-    def __call__(self,
-                spot_id: int,
-                reservation_repository: ReservationRepository) -> list[Reservation]:
-        return reservation_repository.get_by_spot(spot_id)
+    def __init__(self, reservation_repository: ReservationRepository):
+        self.reservation_repository: ReservationRepository = reservation_repository
+
+    def __call__(self, spot_id: int) -> list[Reservation]:
+        return self.reservation_repository.get_by_spot(spot_id)

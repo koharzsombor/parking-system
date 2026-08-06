@@ -3,7 +3,8 @@ from app.application.interfaces.reservation_repository import ReservationReposit
 
 
 class CancelReservation:
-    def __call__(self,
-                reservation_id: UUID,
-                reservation_repository: ReservationRepository):
-        reservation_repository.cancel(reservation_id)
+    def __init__(self, reservation_repository: ReservationRepository):
+        self.reservation_repository: ReservationRepository = reservation_repository
+
+    def __call__(self, reservation_id: UUID):
+        self.reservation_repository.cancel(reservation_id)

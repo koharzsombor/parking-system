@@ -37,7 +37,7 @@ class CreateReservation:
                 reserver_id: UUID,
                 spot_id: int,
                 start: datetime,
-                end: datetime):
+                end: datetime) -> Reservation | None:
         """Executes the use-case.
 
             Args:
@@ -64,3 +64,8 @@ class CreateReservation:
             rule.check(reserver, spot) for rule in self.eligibility_rules
         ):
             self.reservation_repository.save(new_reservation)
+
+        else:
+            return None
+
+        return new_reservation

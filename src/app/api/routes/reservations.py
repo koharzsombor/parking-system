@@ -28,12 +28,23 @@ def create_reservation(
 ):
     """Creates a reservation given it is withing the rules of creating one."""
 
-    use_case(
+    start_time_naive = request.start_time.replace(tzinfo=None)
+    end_time_naive = request.start_time.replace(tzinfo=None)
+
+    new_res = use_case(
         reserver_id=request.user_id,
         spot_id=request.spot_id,
-        start=request.start_time,
-        end=request.end_time
+        start=start_time_naive,
+        end=end_time_naive
     )
+
+    if new_res is None:
+        raise  HTTPException(
+            status_code=400,
+            detail="Invalid reservation."
+        )
+
+    return ReservationMapper.to_schema(new_res)
 
 @router.delete("/{reservation_id}",
                status_code=status.HTTP_204_NO_CONTENT)

@@ -10,10 +10,13 @@ class SQLSpotRepository(SpotRepository):
     def __init__(self, session: Session):
         self.session = session
 
-    def get_by_id(self, spot_id: int) -> ParkingSpot:
+    def get_by_id(self, spot_id: int) -> ParkingSpot | None:
         model = self.session.scalar(
             select(ParkingSpotModel).where(ParkingSpotModel.id == spot_id)
         )
+
+        if model is None:
+            return None
 
         return ParkingSpotMapper.to_domain(model)
 

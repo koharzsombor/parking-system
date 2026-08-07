@@ -11,13 +11,13 @@ class SQLReservationRepository(ReservationRepository):
     def __init__(self, session: Session):
         self.session = session
 
-    def get_by_id(self, res_id: UUID) -> Reservation:
+    def get_by_id(self, res_id: UUID) -> Reservation | None:
         model = self.session.scalar(
             select(ReservationModel).where(ReservationModel.id == res_id)
         )
 
         if model is None:
-            raise ValueError("Model not found!")
+            return None
 
         return ReservationMapper.to_domain(model)
 

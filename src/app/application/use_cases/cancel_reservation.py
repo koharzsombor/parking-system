@@ -15,6 +15,6 @@ class CancelReservation:
         """Executes the use-case.
 
         Args:
-            reservation_id (UUID): The ID of the reservation to be cancelled.
+            reservation_id (UUID): The ID of the reservation to be canceled.
         """
         self.reservation_repository.cancel(reservation_id)

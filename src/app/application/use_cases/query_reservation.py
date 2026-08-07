@@ -12,7 +12,7 @@ class QueryReservation:
     def __init__(self, reservation_repository: ReservationRepository):
         self.reservation_repository: ReservationRepository = reservation_repository
 
-    def __call__(self, reservation_id: UUID) -> Reservation:
+    def __call__(self, reservation_id: UUID) -> Reservation | None:
         """Executes the use-case.
 
         Args:

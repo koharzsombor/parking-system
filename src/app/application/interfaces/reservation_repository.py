@@ -15,7 +15,7 @@ class ReservationRepository(ABC):
         pass
 
     @abstractmethod
-    def get_by_id(self, res_id: UUID) -> Reservation:
+    def get_by_id(self, res_id: UUID) -> Reservation | None:
         """Gets a reservation from the reservation ID.
 
         Args:
@@ -55,6 +55,6 @@ class ReservationRepository(ABC):
         """Cancels the given reservation.
 
         Args:
-            res_id (UUID): The ID of the reservation to be cancelled.
+            res_id (UUID): The ID of the reservation to be canceled.
         """
         pass

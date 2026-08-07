@@ -8,8 +8,9 @@ from app.application.interfaces.spot_repository import SpotRepository
 from app.application.interfaces.user_repository import UserRepository
 from app.application.use_cases.cancel_reservation import CancelReservation
 from app.application.use_cases.create_reservation import CreateReservation
+from app.application.use_cases.query_reservation import QueryReservation
 from app.di.repositories import get_user_repository, get_spot_repository, get_reservation_repository
-from app.di.use_cases import get_create_reservation, get_cancel_reservation
+from app.di.use_cases import get_create_reservation, get_cancel_reservation, get_query_reservation
 
 router = APIRouter(
     prefix="/reservations",
@@ -49,19 +50,19 @@ def cancel_reservation(
 
 @router.get("/{reservation_id}", response_model=ReservationResponse)
 def get_reservation(reservation_id: UUID,
-                    reservation_repository: ReservationRepository = Depends(get_reservation_repository)):
+                    query_reservation: QueryReservation = Depends(get_query_reservation)):
     """Gets the reservation with the given index.
 
     Args:
         reservation_id (UUID): ID of the reservation.
     """
 
-    try:
-        reservation = reservation_repository.get_by_id(reservation_id)
-    except ValueError:
+    reservation = query_reservation(reservation_id=reservation_id)
+
+    if reservation is None:
         raise HTTPException(
             status_code=404,
-            detail="Reservation not found"
+            detail="Reservation not found."
         )
 
     return ReservationMapper.to_schema(reservation)

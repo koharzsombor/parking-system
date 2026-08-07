@@ -11,12 +11,12 @@ class SQLUserRepository(UserRepository):
     def __init__(self, session: Session):
         self.session = session
 
-    def get_by_id(self, user_id: UUID) -> User:
+    def get_by_id(self, user_id: UUID) -> User | None:
         model = self.session.scalar(
             select(UserModel).where(UserModel.id == user_id)
         )
 
         if model is None:
-            raise ValueError("User not found")
+            return None
 
         return UserMapper.to_domain(model)

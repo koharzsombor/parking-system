@@ -12,7 +12,7 @@ class QueryUser:
     def __init__(self, user_repository: UserRepository):
         self.user_repository: UserRepository = user_repository
 
-    def __call__(self, user_id: UUID) -> User:
+    def __call__(self, user_id: UUID) -> User | None:
         """Executes the use-case.
 
         Args:

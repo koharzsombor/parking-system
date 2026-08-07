@@ -5,7 +5,7 @@ class SpotRepository(ABC):
     """An interface for a repository for parking spots."""
 
     @abstractmethod
-    def get_by_id(self, spot_id: int) -> ParkingSpot:
+    def get_by_id(self, spot_id: int) -> ParkingSpot | None:
         """Gets a parking spot from the parking spot ID.
 
         Args:

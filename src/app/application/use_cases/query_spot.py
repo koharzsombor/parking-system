@@ -12,7 +12,7 @@ class QuerySpot:
     def __init__(self, spot_repository: SpotRepository):
         self.spot_repository: SpotRepository = spot_repository
 
-    def __call__(self, spot_id: int) -> ParkingSpot:
+    def __call__(self, spot_id: int) -> ParkingSpot | None:
         """Executes the use-case.
 
         Args:
